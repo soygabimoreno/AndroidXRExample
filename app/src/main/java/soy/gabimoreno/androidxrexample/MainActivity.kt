@@ -65,9 +65,16 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("RestrictedApi")
 @Composable
 fun MySpatialContent(onRequestHomeSpaceMode: () -> Unit) {
-    SpatialPanel(SubspaceModifier.width(1280.dp).height(800.dp).resizable().movable()) {
+    SpatialPanel(
+        SubspaceModifier
+            .width(1280.dp)
+            .height(800.dp)
+            .resizable()
+            .movable()
+    ) {
         Surface {
             MainContent(
+                mode = "3D",
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(48.dp)
@@ -95,7 +102,7 @@ fun My2DContent(onRequestFullSpaceMode: () -> Unit) {
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            MainContent(modifier = Modifier.padding(48.dp))
+            MainContent(mode = "2D", modifier = Modifier.padding(48.dp))
             if (LocalHasXrSpatialFeature.current) {
                 FullSpaceModeIconButton(
                     onClick = onRequestFullSpaceMode,
@@ -107,8 +114,8 @@ fun My2DContent(onRequestFullSpaceMode: () -> Unit) {
 }
 
 @Composable
-fun MainContent(modifier: Modifier = Modifier) {
-    Text(text = stringResource(R.string.hello_android_xr), modifier = modifier)
+fun MainContent(mode: String, modifier: Modifier = Modifier) {
+    Text(text = "Mode: $mode", modifier = modifier)
 }
 
 @Composable
