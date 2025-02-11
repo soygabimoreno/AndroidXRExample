@@ -11,11 +11,14 @@ import soy.gabimoreno.androidxrexample.R
 import soy.gabimoreno.androidxrexample.ui.theme.AndroidXRExampleTheme
 
 @Composable
-fun HomeSpaceModeIconButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun HomeSpaceModeIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     FilledTonalIconButton(onClick = onClick, modifier = modifier) {
         Icon(
             painter = painterResource(id = R.drawable.ic_home_space_mode_switch),
-            contentDescription = stringResource(R.string.switch_to_home_space_mode)
+            contentDescription = stringResource(R.string.switch_to_home_space_mode),
         )
     }
 }

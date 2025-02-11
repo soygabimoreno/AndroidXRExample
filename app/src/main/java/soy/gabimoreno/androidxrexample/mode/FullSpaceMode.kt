@@ -20,7 +20,7 @@ import androidx.xr.compose.subspace.layout.height
 import androidx.xr.compose.subspace.layout.movable
 import androidx.xr.compose.subspace.layout.resizable
 import androidx.xr.compose.subspace.layout.width
-import soy.gabimoreno.androidxrexample.content.MainContent
+import soy.gabimoreno.androidxrexample.MainContent
 import soy.gabimoreno.androidxrexample.ui.button.HomeSpaceModeIconButton
 
 @SuppressLint("RestrictedApi")
@@ -31,25 +31,25 @@ fun FullSpaceMode(onRequestHomeSpaceMode: () -> Unit) {
             .width(1280.dp)
             .height(800.dp)
             .resizable()
-            .movable()
+            .movable(),
     ) {
         Surface {
             MainContent(
-                mode = "3D",
+                mode = "FULL Space",
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(48.dp)
+                    .padding(48.dp),
             )
         }
         Orbiter(
             position = OrbiterEdge.Top,
             offset = EdgeOffset.inner(offset = 20.dp),
             alignment = Alignment.End,
-            shape = SpatialRoundedCornerShape(CornerSize(28.dp))
+            shape = SpatialRoundedCornerShape(CornerSize(28.dp)),
         ) {
             HomeSpaceModeIconButton(
                 onClick = onRequestHomeSpaceMode,
-                modifier = Modifier.size(56.dp)
+                modifier = Modifier.size(56.dp),
             )
         }
     }

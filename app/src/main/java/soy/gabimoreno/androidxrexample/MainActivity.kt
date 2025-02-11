@@ -8,8 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.xr.compose.platform.LocalSession
 import androidx.xr.compose.platform.LocalSpatialCapabilities
 import androidx.xr.compose.spatial.Subspace
-import soy.gabimoreno.androidxrexample.mode.HomeSpaceMode
 import soy.gabimoreno.androidxrexample.mode.FullSpaceMode
+import soy.gabimoreno.androidxrexample.mode.HomeSpaceMode
 import soy.gabimoreno.androidxrexample.ui.theme.AndroidXRExampleTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,10 +22,18 @@ class MainActivity : ComponentActivity() {
                 val session = LocalSession.current
                 if (LocalSpatialCapabilities.current.isSpatialUiEnabled) {
                     Subspace {
-                        FullSpaceMode(onRequestHomeSpaceMode = { session?.requestHomeSpaceMode() })
+                        FullSpaceMode(
+                            onRequestHomeSpaceMode = {
+                                session?.requestHomeSpaceMode()
+                            },
+                        )
                     }
                 } else {
-                    HomeSpaceMode(onRequestFullSpaceMode = { session?.requestFullSpaceMode() })
+                    HomeSpaceMode(
+                        onRequestFullSpaceMode = {
+                            session?.requestFullSpaceMode()
+                        },
+                    )
                 }
             }
         }

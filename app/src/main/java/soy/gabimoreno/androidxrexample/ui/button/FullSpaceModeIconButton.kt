@@ -11,11 +11,14 @@ import soy.gabimoreno.androidxrexample.R
 import soy.gabimoreno.androidxrexample.ui.theme.AndroidXRExampleTheme
 
 @Composable
-fun FullSpaceModeIconButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun FullSpaceModeIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     IconButton(onClick = onClick, modifier = modifier) {
         Icon(
             painter = painterResource(id = R.drawable.ic_full_space_mode_switch),
-            contentDescription = stringResource(R.string.switch_to_full_space_mode)
+            contentDescription = stringResource(R.string.switch_to_full_space_mode),
         )
     }
 }
