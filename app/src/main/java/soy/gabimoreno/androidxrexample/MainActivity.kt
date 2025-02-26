@@ -19,20 +19,20 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidXRExampleTheme {
-                val session = LocalSession.current
-                session?.requestFullSpaceMode()
+                val session = checkNotNull(LocalSession.current)
+                session.spatialEnvironment.requestFullSpaceMode()
                 if (LocalSpatialCapabilities.current.isSpatialUiEnabled) {
                     Subspace {
                         FullSpaceMode(
                             onRequestHomeSpaceMode = {
-                                session?.requestHomeSpaceMode()
+                                session.spatialEnvironment.requestHomeSpaceMode()
                             },
                         )
                     }
                 } else {
                     HomeSpaceMode(
                         onRequestFullSpaceMode = {
-                            session?.requestFullSpaceMode()
+                            session.spatialEnvironment.requestFullSpaceMode()
                         },
                     )
                 }
