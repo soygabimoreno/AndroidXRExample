@@ -1,56 +1,64 @@
 package soy.gabimoreno.androidxrexample.mode
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.dp
-import androidx.xr.compose.spatial.EdgeOffset
-import androidx.xr.compose.spatial.Orbiter
-import androidx.xr.compose.spatial.OrbiterEdge
-import androidx.xr.compose.subspace.SpatialPanel
-import androidx.xr.compose.subspace.layout.SpatialRoundedCornerShape
+import androidx.xr.compose.platform.LocalSession
+import androidx.xr.compose.spatial.Subspace
+import androidx.xr.compose.subspace.SpatialLayoutSpacer
+import androidx.xr.compose.subspace.SpatialRow
+import androidx.xr.compose.subspace.Volume
 import androidx.xr.compose.subspace.layout.SubspaceModifier
-import androidx.xr.compose.subspace.layout.height
-import androidx.xr.compose.subspace.layout.movable
-import androidx.xr.compose.subspace.layout.resizable
+import androidx.xr.compose.subspace.layout.offset
+import androidx.xr.compose.subspace.layout.scale
 import androidx.xr.compose.subspace.layout.width
-import soy.gabimoreno.androidxrexample.MainContent
-import soy.gabimoreno.androidxrexample.ui.button.HomeSpaceModeIconButton
+import androidx.xr.scenecore.GltfModelEntity
+import androidx.xr.scenecore.SpatialCapabilities
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.guava.await
+import kotlinx.coroutines.launch
+import soy.gabimoreno.androidxrexample.ui.spatial.MySpatialPanel
 
 @SuppressLint("RestrictedApi")
 @Composable
 fun FullSpaceMode(onRequestHomeSpaceMode: () -> Unit) {
-    SpatialPanel(
-        SubspaceModifier
-            .width(1280.dp)
-            .height(800.dp)
-            .resizable()
-            .movable(),
-    ) {
-        Surface {
-            MainContent(
-                mode = "FULL Space",
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(48.dp),
-            )
+    val session = requireNotNull(LocalSession.current)
+    val scope = rememberCoroutineScope()
+    Subspace {
+        Volume(
+            modifier = SubspaceModifier
+                .offset(0.dp, 0.dp, 0.dp)
+                .scale(1.2f),
+
+            ) { parent ->
+            scope.launch {
+                val gltfModel = session.createGltfResourceAsync(
+                    "models/saturn_rings.glb",
+                ).await()
+
+                if (session.getSpatialCapabilities()
+                        .hasCapability(SpatialCapabilities.SPATIAL_CAPABILITY_3D_CONTENT)
+                ) {
+                    // create the gltf entity using the gltf file from the previous snippet
+                    val gltfEntity = GltfModelEntity.create(session, gltfModel)
+                }
+            }
         }
-        Orbiter(
-            position = OrbiterEdge.Top,
-            offset = EdgeOffset.inner(offset = 20.dp),
-            alignment = Alignment.End,
-            shape = SpatialRoundedCornerShape(CornerSize(28.dp)),
-        ) {
-            HomeSpaceModeIconButton(
-                onClick = onRequestHomeSpaceMode,
-                modifier = Modifier.size(56.dp),
-            )
+    }
+
+
+
+    LaunchedEffect(Unit) {
+        scope.launch(Dispatchers.Main) {
+
         }
+    }
+
+    SpatialRow {
+        MySpatialPanel(onRequestHomeSpaceMode)
+        SpatialLayoutSpacer(SubspaceModifier.width(48.dp))
+        MySpatialPanel(onRequestHomeSpaceMode)
     }
 }

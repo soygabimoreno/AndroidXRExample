@@ -20,6 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AndroidXRExampleTheme {
                 val session = LocalSession.current
+                session?.requestFullSpaceMode()
                 if (LocalSpatialCapabilities.current.isSpatialUiEnabled) {
                     Subspace {
                         FullSpaceMode(

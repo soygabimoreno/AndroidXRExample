@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.androidx.compose)
     implementation(libs.runtime)
     implementation(libs.androidx.scenecore)
+    implementation(libs.androidx.concurrent.futures)
+    implementation(libs.kotlinx.coroutines.guava)
 
     testImplementation(libs.junit)
 
