@@ -1,7 +1,5 @@
 package soy.gabimoreno.androidxrexample
 
-import android.annotation.SuppressLint
-import android.webkit.WebView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.xr.compose.spatial.SpatialDialog
 import soy.gabimoreno.androidxrexample.ui.classic.ClassicTextView
 
